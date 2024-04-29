@@ -131,7 +131,6 @@ int main(int argc, char *argv[])
     // Neste ponto, voce deve implementar o algoritmo!
     // (ou chamar funcoes para fazer isso)
 
-    bool usedPixels[tam] = {false};
     for (int i = 0; i < tam; i++) {
     int min_dist = 10000;
     RGBpixel closest_pixel;
@@ -321,3 +320,4 @@ void draw()
 
     // Exibe a imagem
     glutSwapBuffers();
+}
