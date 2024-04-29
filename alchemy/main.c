@@ -126,20 +126,26 @@ int main(int argc, char *argv[])
     //
     // Neste ponto, voce deve implementar o algoritmo!
     // (ou chamar funcoes para fazer isso)
+    for (int i = 0; i < tam; i++) {
+    int min_dist = 10000;
+    RGBpixel closest_pixel;
+
+    for (int j = 0; j < tam; j++) {
+        int dist = sqrt(pow(pic[ORIGEM].pixels[j].r - pic[DESEJ].pixels[i].r, 2) +
+                        pow(pic[ORIGEM].pixels[j].g - pic[DESEJ].pixels[i].g, 2) +
+                        pow(pic[ORIGEM].pixels[j].b - pic[DESEJ].pixels[i].b, 2));
+
+        if (dist < min_dist) {
+            min_dist = dist;
+            closest_pixel = pic[ORIGEM].pixels[j];
+        }
+    }
+
+    pic[SAIDA].pixels[i] = closest_pixel;
+}
     //
     // Aplica o algoritmo e gera a saida em pic[SAIDA].pixels...
-    // ...
-    // ...
-    //
-    // Exemplo de manipulação: inverte as cores na imagem de saída
-    /**/
-    for (int i = 0; i < tam; i++)
-    {
-        pic[SAIDA].pixels[i].r = 255 - pic[SAIDA].pixels[i].r;
-        pic[SAIDA].pixels[i].g = 255 - pic[SAIDA].pixels[i].g;
-        pic[SAIDA].pixels[i].b = 255 - pic[SAIDA].pixels[i].b;
-    }
-    /**/
+
 
     // NÃO ALTERAR A PARTIR DAQUI!
 
