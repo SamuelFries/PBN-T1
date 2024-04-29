@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h> // Para usar strings
 #include <time.h>
+#include <math.h>
 
 #ifdef WIN32
 #include <windows.h> // inclui apenas no Windows
@@ -16,6 +17,7 @@
 
 // SOIL é a biblioteca para leitura das imagens
 #include "SOIL.h"
+#include <stdbool.h>
 
 // Um pixel RGBpixel (24 bits)
 typedef struct
@@ -48,6 +50,8 @@ GLuint tex[3];
 
 // As 3 imagens
 Img pic[3];
+
+bool *usedPixels;
 
 // Imagem selecionada (0,1,2)
 int sel;
@@ -126,12 +130,14 @@ int main(int argc, char *argv[])
     //
     // Neste ponto, voce deve implementar o algoritmo!
     // (ou chamar funcoes para fazer isso)
+
+    bool usedPixels[tam] = {false};
     for (int i = 0; i < tam; i++) {
     int min_dist = 10000;
     RGBpixel closest_pixel;
 
     for (int j = 0; j < tam; j++) {
-        int dist = sqrt(pow(pic[ORIGEM].pixels[j].r - pic[DESEJ].pixels[i].r, 2) +
+        double dist = sqrt(pow(pic[ORIGEM].pixels[j].r - pic[DESEJ].pixels[i].r, 2) +
                         pow(pic[ORIGEM].pixels[j].g - pic[DESEJ].pixels[i].g, 2) +
                         pow(pic[ORIGEM].pixels[j].b - pic[DESEJ].pixels[i].b, 2));
 
@@ -142,7 +148,12 @@ int main(int argc, char *argv[])
     }
 
     pic[SAIDA].pixels[i] = closest_pixel;
-}
+    }
+
+    /*
+    
+    
+    */
     //
     // Aplica o algoritmo e gera a saida em pic[SAIDA].pixels...
 
@@ -310,4 +321,3 @@ void draw()
 
     // Exibe a imagem
     glutSwapBuffers();
-}
