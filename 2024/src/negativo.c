@@ -1,4 +1,6 @@
 #include "negativo.h"
+#include "ppm.h"
+#include "ppm.h"
 
 void negative(PPMImage *img) {
     for (int j = 0; j < img->height; j++) {
