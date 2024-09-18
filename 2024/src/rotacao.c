@@ -1,5 +1,6 @@
 #include "rotacao.h"
 #include <stdlib.h>
+#include "ppm.h"
 
 void rotacionar_90(PPMImage **img) {
     int old_width = (*img)->width;

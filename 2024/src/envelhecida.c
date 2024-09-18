@@ -1,4 +1,5 @@
 #include "envelhecida.h"
+#include "ppm.h"
 
 void sepia(PPMImage *img, float factor) {
     for (int j = 0; j < img->height; j++) {

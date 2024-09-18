@@ -14,6 +14,9 @@ int main() {
         return 1;
     }
 
+    // Limpa o buffer de entrada para evitar problemas com o próximo scanf
+    while (getchar() != '\n');
+
     // Carrega a imagem
     PPMImage *img = readPPM(filename);  // Supondo que você tenha uma função para ler a imagem
     
@@ -27,12 +30,16 @@ int main() {
     printf("1. Gerar uma imagem em tons de cinza\n");
     if (scanf("%d", &option) != 1) {
         printf("Erro ao ler a opção.\n");
+        free(img->data);
+        free(img);
         return 1;
     }
 
     // Verifica se a opção é válida
     if (option != 1) {
         printf("Opção inválida.\n");
+        free(img->data);
+        free(img);
         return 1;
     }
 

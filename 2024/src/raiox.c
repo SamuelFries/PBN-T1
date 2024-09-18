@@ -1,4 +1,5 @@
 #include "raiox.h"
+#include "ppm.h"
 #include <math.h>  // Para usar a função de potência pow()
 
 void xray(PPMImage *img, float factor) {
