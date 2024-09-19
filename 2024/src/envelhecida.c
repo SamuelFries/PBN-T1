@@ -2,12 +2,12 @@
 
 void sepia(PPMImage *img, float factor) {
     for (int i = 0; i < img->width * img->height; i++) {
-        unsigned char old_red = img->data[i].red;
-        unsigned char old_green = img->data[i].green;
-        unsigned char old_blue = img->data[i].blue;
+        unsigned char r = img->data[i * 3];
+        unsigned char g = img->data[i * 3 + 1];
+        unsigned char b = img->data[i * 3 + 2];
 
-        img->data[i].red = (unsigned char) (old_red * 0.393 + old_green * 0.769 + old_blue * 0.189) * factor;
-        img->data[i].green = (unsigned char) (old_red * 0.349 + old_green * 0.686 + old_blue * 0.168) * factor;
-        img->data[i].blue = (unsigned char) (old_red * 0.272 + old_green * 0.534 + old_blue * 0.131) * factor;
+        img->data[i * 3] = (unsigned char)(r * (1 - factor) + g * 0.5 * factor + b * 0.2 * factor);
+        img->data[i * 3 + 1] = (unsigned char)(r * 0.2 * factor + g * (1 - factor) + b * 0.5 * factor);
+        img->data[i * 3 + 2] = (unsigned char)(r * 0.2 * factor + g * 0.2 * factor + b * (1 - factor));
     }
 }

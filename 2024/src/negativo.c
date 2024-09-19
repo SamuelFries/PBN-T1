@@ -1,9 +1,7 @@
 #include "negativo.h"
 
 void negative(PPMImage *img) {
-    for (int i = 0; i < img->width * img->height; i++) {
-        img->data[i].red = 255 - img->data[i].red;
-        img->data[i].green = 255 - img->data[i].green;
-        img->data[i].blue = 255 - img->data[i].blue;
+    for (int i = 0; i < img->width * img->height * 3; i++) {
+        img->data[i] = 255 - img->data[i];
     }
 }

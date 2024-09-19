@@ -5,7 +5,7 @@
 #include "raiox.h"
 #include "envelhecida.h"
 #include "rotacao.h"
-#include "imagem_ppm.h"  // Inclui o cabeçalho que define a estrutura PPM
+#include "imagem_ppm.h"
 
 int main() {
     char filename[100];
@@ -14,10 +14,10 @@ int main() {
 
     // Solicita o nome da imagem
     printf("Digite o nome da imagem *.ppm (mínimo 400x400): ");
-    scanf("%s", filename);
+    scanf("%99s", filename);
 
     // Carrega a imagem
-    PPMImage *img = readPPM(filename);  // Supondo que você tenha uma função para ler a imagem
+    PPMImage *img = readPPM(filename);
 
     if (img == NULL) {
         printf("Erro ao ler a imagem.\n");
