@@ -1,53 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "cinza.h"
-#include "ppm.h"  // Inclui o cabeçalho que define a estrutura PPM
 
-int main() {
-    char filename[100];
-    int option;
-    
-    // Solicita o nome da imagem
-    printf("Digite o nome da imagem *.ppm (mínimo 400x400): ");
-    if (scanf("%99s", filename) != 1) {
-        printf("Erro ao ler o nome do arquivo.\n");
-        return 1;
+void grayscale(PPMImage *img) {
+    for (int i = 0; i < img->width * img->height; i++) {
+        unsigned char gray = (img->data[i].red + img->data[i].green + img->data[i].blue) / 3;
+        img->data[i].red = gray;
+        img->data[i].green = gray;
+        img->data[i].blue = gray;
     }
-
-    // Limpa o buffer de entrada para evitar problemas com o próximo scanf
-    while (getchar() != '\n');
-
-    // Carrega a imagem
-    PPMImage *img = readPPM(filename);  // Supondo que você tenha uma função para ler a imagem
-    
-    if (img == NULL) {
-        printf("Erro ao ler a imagem.\n");
-        return 1;
-    }
-
-    // Exibe o menu de opções
-    printf("Escolha uma opção:\n");
-    printf("1. Gerar uma imagem em tons de cinza\n");
-    if (scanf("%d", &option) != 1) {
-        printf("Erro ao ler a opção.\n");
-        free(img->data);
-        free(img);
-        return 1;
-    }
-
-    // Verifica se a opção é válida
-    if (option != 1) {
-        printf("Opção inválida.\n");
-        free(img->data);
-        free(img);
-        return 1;
-    }
-
-    // Continue with the rest of the program logic...
-
-    // Libera a memória alocada para a imagem
-    free(img->data);
-    free(img);
-
-    return 0;
 }

@@ -1,7 +1,7 @@
 #ifndef RAIOX_H
 #define RAIOX_H
 
-#include "ppm.h"  // Estrutura de PPM definida no seu projeto
+#include "imagem_ppm.h"
 
 void xray(PPMImage *img, float factor);
 

@@ -1,7 +1,7 @@
 #ifndef ROTACAO_H
 #define ROTACAO_H
 
-#include "ppm.h"  // Estrutura de PPM definida no seu projeto
+#include "imagem_ppm.h"
 
 void rotacionar_90(PPMImage **img);
 

@@ -1,7 +1,7 @@
 #ifndef CINZA_H
 #define CINZA_H
 
-#include "ppm.h"  // Supondo que você tenha uma estrutura de PPM em um arquivo separado
+#include "imagem_ppm.h"
 
 void grayscale(PPMImage *img);
 

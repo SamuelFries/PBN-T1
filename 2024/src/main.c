@@ -5,20 +5,20 @@
 #include "raiox.h"
 #include "envelhecida.h"
 #include "rotacao.h"
-#include "ppm.h"  // Inclui o cabeçalho que define a estrutura PPM
+#include "imagem_ppm.h"  // Inclui o cabeçalho que define a estrutura PPM
 
 int main() {
     char filename[100];
     int option;
     float factor;
-    
+
     // Solicita o nome da imagem
     printf("Digite o nome da imagem *.ppm (mínimo 400x400): ");
     scanf("%s", filename);
 
     // Carrega a imagem
     PPMImage *img = readPPM(filename);  // Supondo que você tenha uma função para ler a imagem
-    
+
     if (img == NULL) {
         printf("Erro ao ler a imagem.\n");
         return 1;
@@ -32,7 +32,7 @@ int main() {
     printf("4. Gerar uma imagem envelhecida/sépia\n");
     printf("5. Rotacionar a imagem 90 graus\n");
     scanf("%d", &option);
-    
+
     switch (option) {
         case 1:
             grayscale(img);
