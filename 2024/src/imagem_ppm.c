@@ -1,34 +1,59 @@
+#include "imagem_ppm.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>  // Adicione esta linha para incluir strcmp
-#include "imagem_ppm.h"
 
+// Função para ler imagem PPM
 PPMImage *readPPM(const char *filename) {
-    FILE *file = fopen(filename, "rb");
+    FILE *file;
+    PPMImage *img;
+    char buffer[16];
+    int maxval;
+
+    file = fopen(filename, "rb");
     if (!file) {
+        fprintf(stderr, "Não foi possível abrir o arquivo.\n");
         return NULL;
     }
 
-    char format[3];
-    if (fscanf(file, "%2s", format) != 1 || strcmp(format, "P6") != 0) {
+    // Lê o tipo de imagem
+    if (!fgets(buffer, sizeof(buffer), file)) {
+        fprintf(stderr, "Leitura do tipo de arquivo PPM falhou.\n");
         fclose(file);
         return NULL;
     }
 
-    int width, height, maxval;
-    if (fscanf(file, "%d %d %d", &width, &height, &maxval) != 3 || maxval != 255) {
+    // Verifica o tipo de imagem (P6 é binário)
+    if (buffer[0] != 'P' || buffer[1] != '6') {
+        fprintf(stderr, "Formato de arquivo PPM inválido.\n");
         fclose(file);
         return NULL;
     }
 
-    fgetc(file);  // Consumir o caractere de nova linha após os cabeçalhos
+    // Lê as dimensões da imagem
+    if (fscanf(file, "%d %d %d", &img->width, &img->height, &maxval) != 3) {
+        fprintf(stderr, "Cabeçalho PPM inválido.\n");
+        fclose(file);
+        return NULL;
+    }
 
-    PPMImage *img = malloc(sizeof(PPMImage));
-    img->width = width;
-    img->height = height;
-    img->data = malloc(width * height * 3);
+    img = (PPMImage *)malloc(sizeof(PPMImage));
+    if (!img) {
+        fprintf(stderr, "Falha ao alocar memória para a imagem.\n");
+        fclose(file);
+        return NULL;
+    }
 
-    if (fread(img->data, 3, width * height, file) != width * height) {
+    img->data = (unsigned char *)malloc(img->width * img->height * 3);
+    if (!img->data) {
+        fprintf(stderr, "Falha ao alocar memória para os dados da imagem.\n");
+        free(img);
+        fclose(file);
+        return NULL;
+    }
+
+    // Lê os dados da imagem
+    if (fread(img->data, 3, img->width * img->height, file) != img->width * img->height) {
+        fprintf(stderr, "Erro ao ler os dados da imagem.\n");
         free(img->data);
         free(img);
         fclose(file);
@@ -39,14 +64,22 @@ PPMImage *readPPM(const char *filename) {
     return img;
 }
 
+// Função para salvar imagem PPM
 void savePPM(const char *filename, const PPMImage *img) {
-    FILE *file = fopen(filename, "wb");
+    FILE *file;
+    file = fopen(filename, "wb");
     if (!file) {
+        fprintf(stderr, "Não foi possível abrir o arquivo para escrita.\n");
         return;
     }
 
+    // Escreve o cabeçalho
     fprintf(file, "P6\n%d %d\n255\n", img->width, img->height);
-    fwrite(img->data, 3, img->width * img->height, file);
+
+    // Escreve os dados da imagem
+    if (fwrite(img->data, 3, img->width * img->height, file) != img->width * img->height) {
+        fprintf(stderr, "Erro ao escrever no arquivo.\n");
+    }
 
     fclose(file);
 }
