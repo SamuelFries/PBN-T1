@@ -13,11 +13,11 @@ int main() {
     float factor;
 
     // Solicita o nome da imagem
-    printf("Digite o nome da imagem *.ppm (mínimo 400x400): ");
-    scanf("%99s", filename);
+    //printf("Digite o nome da imagem *.ppm (mínimo 400x400): ");
+    //scanf("%99s", filename);
 
     // Carrega a imagem
-    PPMImage *img = readPPM(filename);
+    PPMImage *img = readPPM("imagem.ppm");
 
     if (img == NULL) {
         printf("Erro ao ler a imagem.\n");
@@ -36,27 +36,27 @@ int main() {
     switch (option) {
         case 1:
             grayscale(img);
-            savePPM("output_grayscale.ppm", img);
+            savePPM("output/output_grayscale.ppm", img);  // Inclui 'output/'
             break;
         case 2:
             negative(img);
-            savePPM("output_negative.ppm", img);
+            savePPM("output/output_negative.ppm", img);   // Inclui 'output/'
             break;
         case 3:
             printf("Digite o fator de intensidade para o efeito raio-X (entre 1.0 e 2.0): ");
             scanf("%f", &factor);
             xray(img, factor);
-            savePPM("output_xray.ppm", img);
+            savePPM("output/output_xray.ppm", img);       // Inclui 'output/'
             break;
         case 4:
             printf("Digite o fator de envelhecimento (exemplo 0.1): ");
             scanf("%f", &factor);
             sepia(img, factor);
-            savePPM("output_sepia.ppm", img);
+            savePPM("output/output_sepia.ppm", img);      // Inclui 'output/'
             break;
         case 5:
             rotacionar_90(&img);
-            savePPM("output_rotated.ppm", img);
+            savePPM("output/output_rotated.ppm", img);    // Inclui 'output/'
             break;
         default:
             printf("Opção inválida.\n");
