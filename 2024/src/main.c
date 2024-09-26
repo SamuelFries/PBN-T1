@@ -12,7 +12,7 @@ int main() {
     float factor;
 
     // Carrega a imagem
-    PPMImage *img = readPPM("src/imagem.ppm");
+    PPMImage *img = readPPM("imagem.ppm");
 
     if (img == NULL) {
         printf("Erro ao ler a imagem.\n");
