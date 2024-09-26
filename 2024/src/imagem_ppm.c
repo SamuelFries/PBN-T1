@@ -9,15 +9,24 @@ PPMImage *readPPM(const char *filename) {
     char buffer[16];
     int maxval;
 
+    // Inicialize a estrutura PPMImage para evitar erros
+    img = (PPMImage *)malloc(sizeof(PPMImage));
+    if (!img) {
+        fprintf(stderr, "Falha ao alocar memória para a imagem.\n");
+        return NULL;
+    }
+
     file = fopen(filename, "rb");
     if (!file) {
         fprintf(stderr, "Não foi possível abrir o arquivo.\n");
+        free(img);  // Libera a memória alocada antes de retornar
         return NULL;
     }
 
     // Lê o tipo de imagem
     if (!fgets(buffer, sizeof(buffer), file)) {
         fprintf(stderr, "Leitura do tipo de arquivo PPM falhou.\n");
+        free(img);  // Libera a memória alocada antes de retornar
         fclose(file);
         return NULL;
     }
@@ -25,20 +34,15 @@ PPMImage *readPPM(const char *filename) {
     // Verifica o tipo de imagem (P6 é binário)
     if (buffer[0] != 'P' || buffer[1] != '6') {
         fprintf(stderr, "Formato de arquivo PPM inválido.\n");
+        free(img);  // Libera a memória alocada antes de retornar
         fclose(file);
         return NULL;
     }
 
-    // Lê as dimensões da imagem
+    // Lê as dimensões da imagem e o valor máximo
     if (fscanf(file, "%d %d %d", &img->width, &img->height, &maxval) != 3) {
         fprintf(stderr, "Cabeçalho PPM inválido.\n");
-        fclose(file);
-        return NULL;
-    }
-
-    img = (PPMImage *)malloc(sizeof(PPMImage));
-    if (!img) {
-        fprintf(stderr, "Falha ao alocar memória para a imagem.\n");
+        free(img);  // Libera a memória alocada antes de retornar
         fclose(file);
         return NULL;
     }
@@ -46,13 +50,13 @@ PPMImage *readPPM(const char *filename) {
     img->data = (unsigned char *)malloc(img->width * img->height * 3);
     if (!img->data) {
         fprintf(stderr, "Falha ao alocar memória para os dados da imagem.\n");
-        free(img);
+        free(img);  // Libera a memória alocada antes de retornar
         fclose(file);
         return NULL;
     }
 
     // Lê os dados da imagem
-    if (fread(img->data, 3, img->width * img->height, file) != img->width * img->height) {
+    if (fread(img->data, 3, img->width * img->height, file) != (unsigned long)(img->width * img->height)) {
         fprintf(stderr, "Erro ao ler os dados da imagem.\n");
         free(img->data);
         free(img);
@@ -77,7 +81,7 @@ void savePPM(const char *filename, const PPMImage *img) {
     fprintf(file, "P6\n%d %d\n255\n", img->width, img->height);
 
     // Escreve os dados da imagem
-    if (fwrite(img->data, 3, img->width * img->height, file) != img->width * img->height) {
+    if (fwrite(img->data, 3, img->width * img->height, file) != (unsigned long)(img->width * img->height)) {
         fprintf(stderr, "Erro ao escrever no arquivo.\n");
     }
 

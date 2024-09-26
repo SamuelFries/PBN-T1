@@ -13,6 +13,6 @@ $(TARGET): $(SRC)
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	rm -f output/main
+	rm -f output/imagens
 
 .PHONY: all clean
