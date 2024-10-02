@@ -22,35 +22,39 @@ int main() {
     // Exibe o menu de opções até o usuário escolher uma válida
     do {
         printf("Escolha uma opção:\n");
-        printf("1. Gerar uma imagem em tons de cinza\n");
-        printf("2. Gerar uma imagem negativa\n");
-        printf("3. Gerar uma imagem raio-x\n");
-        printf("4. Gerar uma imagem envelhecida/sépia\n");
-        printf("5. Rotacionar a imagem 90 graus\n");
+        printf("1. Visulizar a imagem original\n");
+        printf("2. Gerar uma imagem em tons de cinza\n");
+        printf("3. Gerar uma imagem negativa\n");
+        printf("4. Gerar uma imagem raio-x\n");
+        printf("5. Gerar uma imagem envelhecida/sépia\n");
+        printf("6. Rotacionar a imagem 90 graus\n");
         scanf("%d", &option);
 
         switch (option) {
             case 1:
+                savePPM("output/output_original.ppm", img);
+                break;
+            case 2:
                 grayscale(img);
                 savePPM("output/output_grayscale.ppm", img);
                 break;
-            case 2:
+            case 3:
                 negative(img);
                 savePPM("output/output_negative.ppm", img);
                 break;
-            case 3:
+            case 4:
                 printf("Digite o fator de intensidade para o efeito raio-X (entre 1.0 e 2.0): ");
                 scanf("%f", &factor);
                 xray(img, factor);
                 savePPM("output/output_xray.ppm", img);
                 break;
-            case 4:
+            case 5:
                 printf("Digite o fator de envelhecimento (exemplo 0.1): ");
                 scanf("%f", &factor);
                 sepia(img, factor);
                 savePPM("output/output_sepia.ppm", img);
                 break;
-            case 5:
+            case 6:
                 rotacionar_90(&img);
                 savePPM("output/output_rotated.ppm", img);
                 break;
@@ -58,7 +62,7 @@ int main() {
                 printf("Opção inválida. Tente novamente.\n");
                 break;
         }
-    } while (option < 1 || option > 5);
+    } while (option < 1 || option > 6);
 
     // Libera a memória alocada para a imagem
     free(img->data);
