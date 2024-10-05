@@ -49,8 +49,6 @@ int main() {
                 savePPM("output/output_xray.ppm", img);
                 break;
             case 5:
-                printf("Digite o fator de envelhecimento (exemplo 0.1): ");
-                scanf("%f", &factor);
                 sepia(img, factor);
                 savePPM("output/output_sepia.ppm", img);
                 break;
