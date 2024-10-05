@@ -2,12 +2,16 @@
 
 void sepia(PPMImage *img, float factor) {
     for (int i = 0; i < img->width * img->height; i++) {
-        unsigned char r = img->data[i * 3];
-        unsigned char g = img->data[i * 3 + 1];
-        unsigned char b = img->data[i * 3 + 2];
+        int r = img->data[i * 3];
+        int g = img->data[i * 3 + 1];
+        int b = img->data[i * 3 + 2];
 
-        img->data[i * 3] = (unsigned char)(r * (1 - factor) + g * 0.5 * factor + b * 0.2 * factor);
-        img->data[i * 3 + 1] = (unsigned char)(r * 0.2 * factor + g * (1 - factor) + b * 0.5 * factor);
-        img->data[i * 3 + 2] = (unsigned char)(r * 0.2 * factor + g * 0.2 * factor + b * (1 - factor));
+        int tr = (int) (0.393 * r + 0.769 * g + 0.189 * b);
+        int tg = (int) (0.349 * r + 0.686 * g + 0.168 * b);
+        int tb = (int) (0.272 * r + 0.534 * g + 0.131 * b);
+
+        img->data[i * 3] = tr > 255 ? 255 : tr;
+        img->data[i * 3 + 1] = tg > 255 ? 255 : tg;
+        img->data[i * 3 + 2] = tb > 255 ? 255 : tb;
     }
 }
