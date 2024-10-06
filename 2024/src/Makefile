@@ -1,3 +1,5 @@
+//Makefile para MacOS e Linux
+
 CC = gcc
 CFLAGS = -Wall -Wextra -g3
 
@@ -10,7 +12,7 @@ $(shell mkdir -p output)
 all: $(TARGET)
 
 $(TARGET): $(SRC)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ -lm
 
 clean:
 	rm -f output/imagens

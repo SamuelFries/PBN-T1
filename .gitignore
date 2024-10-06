@@ -1,0 +1,4 @@
+//gitignore.io/api/node,macos,visualstudiocode
+
+.DS_Store // Mac OS
+.vscode //  Visual Studio Code
