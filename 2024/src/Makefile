@@ -1,7 +1,5 @@
-//Makefile para MacOS e Linux
-
 CC = gcc
-CFLAGS = -Wall -Wextra -g3
+
 
 SRC = main.c imagem_ppm.c cinza.c negativo.c raiox.c envelhecida.c rotacao.c
 TARGET = output/imagens
@@ -12,7 +10,7 @@ $(shell mkdir -p output)
 all: $(TARGET)
 
 $(TARGET): $(SRC)
-	$(CC) $(CFLAGS) -o $@ $^ -lm
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
 	rm -f output/imagens
