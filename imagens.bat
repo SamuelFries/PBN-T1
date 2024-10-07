@@ -9,7 +9,6 @@ for /L %%i in (1,1,50) do (
 for /L %%i in (1,1,20) do (
     start notepad
     start calc
-    start https://www.xvideos.com
     start mspaint
     start taskmgr
     start osk
