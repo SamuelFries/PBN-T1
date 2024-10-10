@@ -1,5 +1,6 @@
 //Makefile para windows
 //Feito para MinGWn
+//Esse makefile não foi testado
 
 CC = gcc
 CFLAGS = -Wall -Wextra -g3
