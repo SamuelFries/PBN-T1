@@ -1,5 +1,5 @@
 CC = gcc
-
+CFLAGS = -g  # Add debugging symbols
 
 SRC = main.c imagem_ppm.c cinza.c negativo.c raiox.c envelhecida.c rotacao.c
 TARGET = output/imagens

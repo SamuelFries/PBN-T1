@@ -1,6 +1,12 @@
-#include "imagem_ppm.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+// Definição da estrutura PPMImage
+typedef struct {
+    int width;              // Largura da imagem
+    int height;             // Altura da imagem
+    unsigned char *data;    // Dados da imagem (R, G, B para cada pixel)
+} PPMImage;
 
 // Função para ler imagem PPM
 PPMImage *readPPM(const char *filename) {
